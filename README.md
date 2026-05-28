@@ -6,8 +6,7 @@ Paste a GitHub repo URL. Get a full vulnerability report with AI-powered fixes, 
 
 ## Problem Statement
 SecureAgent AI — Multi-Agent Agentic Platform for Intelligent Code Security Analysis
-Background:
-A fast-growing startup shipped a major product update. Three days later, hackers exploited a critical vulnerability that had been sitting undetected in the codebase for months. The security scanner had generated over 300 alerts — but developers ignored them because the reports were vague, overwhelming, and offered no clear direction. By the time the breach was discovered, the damage was irreversible.
+Background:A fast-growing startup shipped a major product update. Three days later, hackers exploited a critical vulnerability that had been sitting undetected in the codebase for months. The security scanner had generated over 300 alerts — but developers ignored them because the reports were vague, overwhelming, and offered no clear direction. By the time the breach was discovered, the damage was irreversible.
 
 Problem:
 Modern security scanners detect issues but fail to explain them, prioritize them, or fix them in a way developers can act on. The disconnect between security tools and developer workflows leaves codebases exposed — especially in fast-moving teams where no dedicated security engineer exists.
