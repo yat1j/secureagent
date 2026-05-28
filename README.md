@@ -4,6 +4,17 @@
 
 Paste a GitHub repo URL. Get a full vulnerability report with AI-powered fixes, attack chain visualisation, and a security score in under 60 seconds.
 
+## Problem Statement
+SecureAgent AI — Multi-Agent Agentic Platform for Intelligent Code Security Analysis
+Background
+A fast-growing startup shipped a major product update. Three days later, hackers exploited a critical vulnerability that had been sitting undetected in the codebase for months. The security scanner had generated over 300 alerts — but developers ignored them because the reports were vague, overwhelming, and offered no clear direction. By the time the breach was discovered, the damage was irreversible.
+
+Problem
+Modern security scanners detect issues but fail to explain them, prioritize them, or fix them in a way developers can act on. The disconnect between security tools and developer workflows leaves codebases exposed — especially in fast-moving teams where no dedicated security engineer exists.
+
+Objective
+Build a multi-agent AI security platform where specialized agents collaborate to scan a repository, detect real vulnerabilities, assess threat severity using live intelligence, and deliver clear, developer-friendly fix recommendations — all integrated directly into the development workflow.
+
 ## What it does
 
 - **Scans** your codebase with Semgrep (OWASP Top 10 ruleset)
@@ -59,7 +70,12 @@ npm run dev
 
 Get a free Groq API key (no card needed): https://console.groq.com
 
-## Team
+## Team Palmary
+# Members
+Yatin Arora
+Sai Samarth
+Harshitha Sriram
+Mangala Joshna
 
 | Member | Role |
 |---|---|
