@@ -73,8 +73,11 @@ Get a free Groq API key (no card needed): https://console.groq.com
 ## Team Palmary
 # Members
 Yatin Arora
+
 Sai Samarth
+
 Harshitha Sriram
+
 Mangala Joshna
 
 | Member | Role |
