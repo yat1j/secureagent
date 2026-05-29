@@ -1,18 +1,15 @@
-import React from "react"
-import ReactDOM from "react-dom/client"
-import App from "./App"
-import "./index.css"
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Dashboard from './pages/Dashboard'
+import './index.css'
 
-import ScanProvider from "./context/ScanContext"
-
-ReactDOM.createRoot(document.getElementById("root")).render(
-
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-
-    <ScanProvider>
-      <App />
-    </ScanProvider>
-
+    <BrowserRouter>
+      <Routes>
+        <Route path="/dashboard/:sessionId" element={<Dashboard />} />
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
-
 )
