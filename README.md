@@ -1,16 +1,72 @@
-# React + Vite
+# SecureAgent 🔐
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> AI-powered security analysis for your codebase. Paste a GitHub repo, get a full vulnerability report in seconds.
 
-Currently, two official plugins are available:
+## What it does
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+SecureAgent scans your code using a multi-agent AI pipeline and gives you:
 
-## React Compiler
+- **Security score** out of 100 with animated risk assessment
+- **Vulnerability detection** mapped to OWASP Top 10 categories
+- **Priority fix queue** — the top 3 issues to fix first
+- **Code diff** — broken code vs fixed code, side by side
+- **Proof of concept payloads** for each vulnerability
+- **Attack path graph** — how vulnerabilities chain together
+- **File heatmap** — which files carry the most risk
+- **AI chat** — ask questions about your scan results
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
 
-## Expanding the ESLint configuration
+| Layer | Technology |
+|-------|-----------|
+| Frontend | React, Vite, Tailwind CSS |
+| Visualizations | D3.js |
+| Code Diff | Monaco Editor |
+| Backend | Python, FastAPI |
+| AI Agents | CrewAI |
+| Code Scanning | Semgrep |
+| Source Fetching | GitHub API |
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Team
+
+| Member | Role |
+|--------|------|
+| M1 | Backend & AI agents (CrewAI pipeline) |
+| M2 | Dashboard frontend |
+| M3 | Visualizations (Attack graph, File heatmap) |
+| M4 | Landing page & AI chat drawer |
+
+## Running locally
+
+```bash
+# Frontend
+cd frontend
+npm install
+npm run dev
+
+# Backend
+cd backend
+pip install -r requirements.txt
+uvicorn main:app --reload
+```
+
+Open `http://localhost:5173` and paste a GitHub repo URL to scan.
+
+## Architecture
+
+```
+GitHub Repo URL
+      ↓
+ GitHub Fetcher (fetch files)
+      ↓
+ Semgrep Scanner (static analysis)
+      ↓
+ CrewAI Pipeline:
+   ├── Scanner Agent     (find vulnerabilities)
+   ├── Classifier Agent  (OWASP mapping + severity)
+   ├── Report Agent      (business impact + fix)
+   ├── Attack Chain Agent (chain vulnerabilities)
+   └── Chat Agent        (answer questions)
+      ↓
+ Dashboard (score, vulns, graph, heatmap)
+```
