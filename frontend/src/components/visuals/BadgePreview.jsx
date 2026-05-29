@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { getBadgeUrl } from '../../api'
 
 function buildMarkdown(sessionId, score) {
   return `![SecureAgent Score: ${score}](https://yourapp/badge/${sessionId}.svg)`
@@ -18,7 +19,7 @@ export default function BadgePreview({ sessionId, score }) {
 
     let cancelled = false
 
-    fetch(`/badge/${sessionId}.svg`)
+    fetch(getBadgeUrl(sessionId))
       .then((res) => {
         if (!res.ok) throw new Error('Badge not found')
         return res.blob()
