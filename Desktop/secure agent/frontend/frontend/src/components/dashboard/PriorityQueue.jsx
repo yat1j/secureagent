@@ -23,12 +23,12 @@ export default function PriorityQueue({ vulnerabilities }) {
   if (!priorityItems.length) return null;
 
   return (
-    <div className="bg-white border border-gray-200 rounded-2xl p-5 mb-6 shadow-sm">
+    <div className="bg-gray-900 border border-gray-700 rounded-2xl p-5 mb-6">
       {/* Header */}
       <div className="flex items-center gap-2 mb-4">
         <Zap className="text-purple-500 w-4 h-4" />
-        <span className="text-sm font-semibold text-gray-900">Priority Fix Queue</span>
-        <span className="text-xs text-gray-400 ml-1">
+        <span className="text-sm font-semibold text-gray-100">Priority Fix Queue</span>
+        <span className="text-xs text-gray-500 ml-1">
           Fix these first to eliminate 80% of your risk
         </span>
       </div>
@@ -37,14 +37,14 @@ export default function PriorityQueue({ vulnerabilities }) {
       <div className="flex items-center gap-3 flex-wrap">
         {priorityItems.map((item, idx) => (
           <div key={item.rank} className="flex items-center gap-3">
-            <div className="flex items-center gap-3 bg-gray-50 rounded-xl px-4 py-3 flex-1 min-w-0">
+            <div className="flex items-center gap-3 bg-gray-800 rounded-xl px-4 py-3 flex-1 min-w-0">
               {/* Rank circle */}
               <div className="w-6 h-6 rounded-full bg-gray-900 text-white text-xs font-bold flex items-center justify-center flex-shrink-0">
                 {item.rank}
               </div>
               {/* Text */}
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900 truncate">{item.title}</p>
+                <p className="text-sm font-medium text-gray-100 truncate">{item.title}</p>
                 <p className="text-xs font-mono text-gray-400 truncate">{item.file}</p>
               </div>
               {/* Fix time badge */}
@@ -62,8 +62,8 @@ export default function PriorityQueue({ vulnerabilities }) {
 
       {/* Footer */}
       <div className="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
-        <span className="text-xs text-gray-400">Total estimated fix time</span>
-        <span className="text-xs font-semibold text-gray-700">{totalTime}</span>
+        <span className="text-xs text-gray-500">Total estimated fix time</span>
+        <span className="text-xs font-semibold text-gray-300">{totalTime}</span>
       </div>
     </div>
   );

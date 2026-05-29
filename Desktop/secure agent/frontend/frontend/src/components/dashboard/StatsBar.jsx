@@ -5,10 +5,10 @@ export default function StatsBar({ stats = {} }) {
 
   return (
     <div className="px-5 pb-5">
-      <div className="bg-gray-50 rounded-2xl p-4 flex flex-col gap-3">
+      <div className="bg-gray-800/60 border border-gray-700 rounded-2xl p-4 flex flex-col gap-3">
 
-        <StatRow label="Files scanned" value={files} valueClass="text-gray-800" />
-        <StatRow label="Total vulns" value={total} valueClass="text-gray-800" />
+        <StatRow label="Files scanned" value={files} valueClass="text-gray-300" />
+        <StatRow label="Total vulns"   value={total} valueClass="text-gray-300" />
 
         <div className="border-t border-gray-200 my-1" />
 
@@ -27,7 +27,7 @@ export default function StatsBar({ stats = {} }) {
 function StatRow({ label, value, valueClass }) {
   return (
     <div className="flex items-center justify-between">
-      <span className="text-xs text-gray-400">{label}</span>
+      <span className="text-xs text-gray-500">{label}</span>
       <span className={`text-sm tabular-nums ${valueClass}`}>{value}</span>
     </div>
   );

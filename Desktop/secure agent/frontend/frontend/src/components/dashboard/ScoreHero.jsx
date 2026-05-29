@@ -31,15 +31,14 @@ export default function ScoreHero({ score, repo }) {
 
   const riskBg =
     score < 50
-      ? "bg-red-50 text-red-600 border-red-100"
+      ? "bg-red-950/50 text-red-400 border-red-900"
       : score < 80
-      ? "bg-amber-50 text-amber-600 border-amber-100"
-      : "bg-emerald-50 text-emerald-600 border-emerald-100";
-
+      ? "bg-amber-950/50 text-amber-400 border-amber-900"
+      : "bg-emerald-950/50 text-emerald-400 border-emerald-900";
   return (
     <div className="py-8 px-5">
       {/* Repo label */}
-      <p className="text-xs text-gray-500 mb-3 font-semibold uppercase tracking-widest">
+      <p className="text-xs text-gray-400 mb-3 font-semibold uppercase tracking-widest">
         {repo || "uploaded repo"}
       </p>
 
@@ -56,7 +55,7 @@ export default function ScoreHero({ score, repo }) {
         {riskLabel}
       </span>
 
-      <hr className="border-gray-100 mt-5" />
+      <hr className="border-gray-800 mt-5" />
     </div>
   );
 }

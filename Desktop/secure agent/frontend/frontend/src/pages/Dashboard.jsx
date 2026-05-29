@@ -42,12 +42,12 @@ export default function Dashboard() {
   // Loading state — skeleton cards
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 font-sans">
-        <nav className="bg-white border-b border-gray-100 px-6 py-3 flex items-center justify-between">
+      <div className="min-h-screen bg-gray-950 font-sans">
+        <nav className="w-64 flex-shrink-0 bg-gray-900 border-r border-gray-800 px-6 py-3 flex items-center justify-between">
           <span className="text-lg font-semibold text-gray-900">SecureAgent</span>
         </nav>
         <div className="flex" style={{ minHeight: "calc(100vh - 53px)" }}>
-          <aside className="w-64 flex-shrink-0 bg-white border-r border-gray-100 p-5">
+          <aside className="w-64 flex-shrink-0 bg-gray-900 border-r border-gray-800 overflow-y-auto hide-scrollbar">
             <div className="h-32 bg-gray-100 rounded-2xl animate-pulse mb-4" />
             <div className="h-4 bg-gray-100 rounded animate-pulse mb-2" />
             <div className="h-4 bg-gray-100 rounded animate-pulse mb-2 w-3/4" />
@@ -92,12 +92,12 @@ export default function Dashboard() {
       : sorted.filter((v) => v.severity === filterSeverity);
 
   return (
-    <div className="min-h-screen bg-gray-50 font-sans">
+    <div className="min-h-screen bg-gray-950 font-sans">
 
       {/* ── TOP NAVBAR ── */}
-      <nav className="bg-white border-b border-gray-100 px-6 py-3 flex items-center justify-between shadow-sm sticky top-0 z-50">
+      <nav className="bg-gray-900 border-b border-gray-800 px-6 py-3 flex items-center justify-between shadow-sm sticky top-0 z-50">
         <div className="flex items-center gap-2">
-          <span className="text-lg font-semibold text-gray-900">SecureAgent</span>
+          <span className="text-lg font-semibold text-white">SecureAgent</span>
           <button
             onClick={handleShare}
             className="flex items-center gap-1 cursor-pointer hover:text-purple-600 transition-colors font-mono text-xs text-gray-400 ml-1"
@@ -148,7 +148,7 @@ export default function Dashboard() {
 
         {/* ── SIDEBAR ── */}
         <aside
-          className="w-60 flex-shrink-0 bg-white border-r border-gray-100 overflow-y-auto hide-scrollbar"
+          className="w-60 flex-shrink-0 bg-gray-900 border-r border-gray-800 overflow-y-auto hide-scrollbar"
           style={{ minHeight: "calc(100vh - 53px)" }}
         >
           <ScoreHero
@@ -159,7 +159,7 @@ export default function Dashboard() {
 
           {/* FILE HEATMAP SLOT — M3 plugs in here */}
           <div className="px-5 py-4">
-            <p className="text-xs font-medium text-gray-400 uppercase tracking-widest mb-3">
+            <p className="text-xs font-medium text-gray-500 uppercase tracking-widest mb-3">
               File Heatmap
             </p>
            <FileHeatmap files={data.heatmap} />
@@ -167,7 +167,7 @@ export default function Dashboard() {
         </aside>
 
         {/* ── MAIN CONTENT ── */}
-        <main className="flex-1 px-8 pt-5 pb-8 overflow-y-auto vuln-list">
+        <main className="flex-1 px-8 pt-5 pb-8 overflow-y-auto vuln-list bg-gray-950">
 
           {/* Executive Summary */}
           <ExecutiveSummary summary={data.summary} score={data.score} />
@@ -176,7 +176,7 @@ export default function Dashboard() {
           <PriorityQueue vulnerabilities={data.vulnerabilities} />
 
           {/* ATTACK GRAPH SLOT — M3 plugs in here */}
-          <div className="w-full bg-gray-50 rounded-2xl overflow-hidden">
+          <div className="w-full bg-gray-900 rounded-2xl overflow-hidden">
             <p className="text-xs font-medium text-gray-400 uppercase tracking-widest mb-3">
               Attack Path
             </p>
@@ -193,7 +193,7 @@ export default function Dashboard() {
                   className={`text-xs font-medium px-4 py-1.5 rounded-full border transition-all cursor-pointer capitalize ${
                     filterSeverity === s
                       ? "bg-gray-900 text-white border-gray-900"
-                      : "bg-white text-gray-500 border-gray-200 hover:border-gray-400 hover:text-gray-700"
+                      : "bg-gray-800 text-gray-400 border-gray-700 hover:border-gray-500 hover:text-gray-200"
                   }`}
                 >
                   {s === "all" ? "All" : s.charAt(0).toUpperCase() + s.slice(1)}{" "}
@@ -209,7 +209,7 @@ export default function Dashboard() {
           {/* Showing X of Y */}
           <div className="flex items-center justify-between mb-4">
             <div>
-              <span className="text-sm font-medium text-gray-700">Vulnerabilities</span>
+              <span className="text-sm font-medium text-gray-300">Vulnerabilities</span>
               <span className="text-xs text-gray-400 ml-2">
                 showing {filtered.length} of {sorted.length}
               </span>

@@ -5,10 +5,10 @@ export default function ExecutiveSummary({ summary, score }) {
   const isMid = score >= 50 && score < 80;
 
   const containerClass = isGood
-    ? "bg-emerald-50 border border-emerald-200 rounded-2xl p-5 mb-6"
+    ? "bg-emerald-950/50 border border-emerald-800 rounded-2xl p-5 mb-6"
     : isMid
-    ? "bg-amber-50 border border-amber-200 rounded-2xl p-5 mb-6"
-    : "bg-red-50 border border-red-200 rounded-2xl p-5 mb-6";
+    ? "bg-amber-950/50 border border-amber-800 rounded-2xl p-5 mb-6"
+    : "bg-red-950/50 border border-red-900 rounded-2xl p-5 mb-6";
 
   const labelClass = isGood
     ? "text-emerald-600"
@@ -27,7 +27,7 @@ export default function ExecutiveSummary({ summary, score }) {
           Executive Summary
         </span>
       </div>
-      <p className="text-sm text-gray-700 leading-relaxed">{summary}</p>
+      <p className="text-sm text-gray-300 leading-relaxed">{summary}</p>
     </div>
   );
 }
