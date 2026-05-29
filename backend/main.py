@@ -2,6 +2,7 @@ import asyncio
 import json
 import re
 import uuid
+from agents.chat_agent import run_chat
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
@@ -237,8 +238,8 @@ async def chat(session_id: str, body: ChatRequest):
     report = reports.get(session_id)
     if not report:
         raise HTTPException(status_code=404, detail="Session not found")
-    # TODO: call Agent 5 with report + body.question
-    return {"reply": ""}
+    reply = await asyncio.to_thread(run_chat, report, body.question)
+    return {"reply": reply}
 
 
 @app.get("/scan-status/{session_id}")
