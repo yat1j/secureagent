@@ -5,6 +5,7 @@ import uuid
 from agents.chat_agent import run_chat
 
 from dotenv import load_dotenv
+load_dotenv()
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
@@ -46,15 +47,27 @@ class ChatRequest(BaseModel):
 def calculate_score(vulnerabilities: list) -> int:
     score = 100
     for v in vulnerabilities:
-        severity = str(v.get("severity", "low")).lower()
-        if severity == "critical":
-            score -= 20
-        elif severity == "high":
-            score -= 10
-        elif severity == "medium":
-            score -= 5
-        elif severity == "low":
-            score -= 2
+        severity = v.get("severity", "low")
+        # Handle numeric severity scores
+        if isinstance(severity, (int, float)):
+            if severity >= 9:
+                score -= 20
+            elif severity >= 7:
+                score -= 10
+            elif severity >= 4:
+                score -= 5
+            else:
+                score -= 2
+        else:
+            severity = str(severity).lower()
+            if severity == "critical":
+                score -= 20
+            elif severity == "high":
+                score -= 10
+            elif severity == "medium":
+                score -= 5
+            elif severity == "low":
+                score -= 2
     return max(0, score)
 
 
