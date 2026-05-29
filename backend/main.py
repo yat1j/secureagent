@@ -199,7 +199,13 @@ async def scan(body: ScanRequest):
         findings = await asyncio.to_thread(run_semgrep, code_files)
 
         scan_status[session_id] = {"stage": "analyzing", "agents_done": []}
-        pipeline_result = await asyncio.to_thread(run_pipeline, findings, code_files)
+
+        def on_agent_done(agents_done: list[str]) -> None:
+            scan_status[session_id] = {"stage": "analyzing", "agents_done": agents_done}
+
+        pipeline_result = await asyncio.to_thread(
+            run_pipeline, findings, code_files, on_agent_done
+        )
 
         report = _extract_report(pipeline_result, findings, code_files)
         score = calculate_score(report["vulnerabilities"])
@@ -244,8 +250,9 @@ async def chat(session_id: str, body: ChatRequest):
 
 @app.get("/scan-status/{session_id}")
 async def scan_status_endpoint(session_id: str):
-    status = scan_status.get(session_id, {"stage": "queued", "agents_done": []})
-    return status
+    if session_id not in scan_status:
+        raise HTTPException(status_code=404, detail="Session not found")
+    return scan_status[session_id]
 
 
 @app.get("/badge/{session_id}.svg")

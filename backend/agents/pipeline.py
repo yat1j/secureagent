@@ -37,8 +37,19 @@ reporter = Agent(
     llm=llm, verbose=False
 )
 
-def run_pipeline(semgrep_findings, code_files):
+AGENT_ORDER = ["analyst", "fixer", "mapper", "reporter"]
+
+
+def run_pipeline(semgrep_findings, code_files, on_agent_done=None):
     findings_str = json.dumps(semgrep_findings)
+    agents_done: list[str] = []
+
+    def task_callback(_output):
+        idx = len(agents_done)
+        if idx < len(AGENT_ORDER):
+            agents_done.append(AGENT_ORDER[idx])
+            if on_agent_done:
+                on_agent_done(list(agents_done))
 
     task1 = Task(
         description=f"Analyse these findings: {findings_str}. For each: explain in 2 plain sentences, classify OWASP, score severity 1-10, write business impact in 1 sentence. Return JSON array.",
@@ -68,7 +79,8 @@ def run_pipeline(semgrep_findings, code_files):
         agents=[analyst, fixer, mapper, reporter],
         tasks=[task1, task2, task3, task4],
         process=Process.sequential,
-        verbose=False
+        verbose=False,
+        task_callback=task_callback,
     )
 
     result = crew.kickoff()
