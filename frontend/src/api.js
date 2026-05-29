@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:8000'
+const BASE_URL = 'http://10.250.3.92:8000'
 
 export async function scanRepo(url) {
   try {
