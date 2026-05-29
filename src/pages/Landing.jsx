@@ -1,12 +1,60 @@
-import { useContext } from "react"
-import { ScanContext } from "../context/ScanContext"
+import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { useState } from "react"
+
+import { ScanContext } from "../context/ScanContext"
+import API from "../api/api"
+
 export default function Landing() {
-    const [repoUrl, setRepoUrl] = useState("")
-    const [loading, setLoading] = useState(false)
-    const navigate = useNavigate()
-    const { setScanResult } = useContext(ScanContext)
+
+  const [repoUrl, setRepoUrl] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
+
+  const navigate = useNavigate()
+
+  const { setScanResult } = useContext(ScanContext)
+
+  // SCAN FUNCTION
+  const handleScan = async () => {
+
+    // VALIDATION
+    if (!repoUrl.includes("github.com")) {
+      setError("Please enter a valid GitHub repository URL")
+      return
+    }
+
+    setError("")
+    setLoading(true)
+
+    try {
+
+      // API CALL
+      const response = await API.post("/scan", {
+        repoUrl: repoUrl
+      })
+
+      // SAVE RESULT
+      setScanResult(response.data)
+
+      console.log(response.data)
+
+      // NAVIGATE
+      setTimeout(() => {
+        navigate("/dashboard")
+      }, 1500)
+
+    } catch (error) {
+
+      console.log(error)
+
+      setError("Scan failed. Backend not running.")
+
+    } finally {
+
+      setLoading(false)
+
+    }
+  }
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -36,66 +84,38 @@ export default function Landing() {
           vulnerability reports, and fix suggestions instantly.
         </p>
 
-        {/* INPUT */}
+        {/* INPUT SECTION */}
         <div className="flex gap-4 mt-14 w-full max-w-5xl">
 
-         <input
-          type="text"
-         value={repoUrl}
-          onChange={(e) => setRepoUrl(e.target.value)}
-         placeholder="Paste GitHub Repository URL..."
-         className="flex-1 bg-zinc-900 border border-zinc-800 rounded-3xl px-8 py-6 text-2xl outline-none focus:border-cyan-400"
-         /> 
+          <input
+            type="text"
+            value={repoUrl}
+            onChange={(e) => setRepoUrl(e.target.value)}
+            placeholder="Paste GitHub Repository URL..."
+            className="flex-1 bg-zinc-900 border border-zinc-800 rounded-3xl px-8 py-6 text-2xl outline-none focus:border-cyan-400"
+          />
 
-         <button
-           onClick={async () => {
-
-  setLoading(true)
-
-  try {
-
-    const response = await fetch("http://localhost:5000/scan", {
-
-      method: "POST",
-
-      headers: {
-        "Content-Type": "application/json"
-      },
-
-      body: JSON.stringify({
-        repoUrl: repoUrl
-      })
-
-    })
-
-    const data = await response.json()
-    setScanResult(data)
-
-    console.log(data)
-
-    setTimeout(() => {
-      navigate("/dashboard")
-    }, 2000)
-
-  } catch (error) {
-
-    console.log(error)
-
-  }
-
-}}
-
-             className="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-12 py-6 rounded-3xl text-2xl transition"
-        >
-
-      {loading ? "Scanning Repository..." : "Scan Repo"}
-
-        </button>
+          <button
+            onClick={handleScan}
+            disabled={loading}
+            className="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-12 py-6 rounded-3xl text-2xl transition"
+          >
+            {loading ? "Scanning Repository..." : "Scan Repo"}
+          </button>
 
         </div>
+
+        {/* ERROR MESSAGE */}
+        {error && (
+          <p className="text-red-400 mt-6 text-lg">
+            {error}
+          </p>
+        )}
 
       </div>
 
     </div>
+    
   )
 }
+
