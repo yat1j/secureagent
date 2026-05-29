@@ -1,24 +1,30 @@
-import subprocess
-import json
-
-def run_semgrep(folder_path: str) -> list:
+def run_semgrep(code_files_dict: dict) -> list:
     """
-    Runs Semgrep with OWASP Top 10 ruleset on the given folder.
-    Returns list of raw findings.
+    Semgrep doesn't run on Windows.
+    Returns mock findings so the AI pipeline can be tested.
+    Replace with real semgrep call when deploying on Linux/Mac.
     """
-    result = subprocess.run(
-        [
-            "semgrep",
-            "--config", "p/owasp-top-ten",
-            "--json",
-            folder_path
-        ],
-        capture_output=True,
-        text=True
-    )
-
-    if result.returncode not in (0, 1):  # 1 = findings found, that's fine
-        raise Exception(f"Semgrep error: {result.stderr}")
-
-    data = json.loads(result.stdout)
-    return data.get("results", [])
+    mock_findings = []
+    for filename, content in list(code_files_dict.items())[:5]:
+        if "query" in content.lower() or "select" in content.lower():
+            mock_findings.append({
+                "file": filename, "line": 10,
+                "rule_id": "sql-injection",
+                "message": "Possible SQL injection via string formatting",
+                "code_snippet": "query = f'SELECT * FROM users WHERE id = {user_id}'"
+            })
+        if "innerHTML" in content or "eval(" in content:
+            mock_findings.append({
+                "file": filename, "line": 25,
+                "rule_id": "xss",
+                "message": "Possible XSS via unsafe HTML injection",
+                "code_snippet": "element.innerHTML = userInput"
+            })
+    return mock_findings if mock_findings else [
+        {
+            "file": "app.py", "line": 1,
+            "rule_id": "hardcoded-secret",
+            "message": "Hardcoded API key found",
+            "code_snippet": "API_KEY = 'sk-abc123'"
+        }
+    ]
