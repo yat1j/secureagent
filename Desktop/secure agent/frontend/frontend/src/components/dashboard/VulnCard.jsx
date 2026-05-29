@@ -37,6 +37,9 @@ export default function VulnCard({ vuln }) {
             <div className="flex items-center gap-2 flex-wrap mb-1">
               <span className="font-semibold text-gray-100 text-sm">{vuln.title}</span>
               <span className="font-mono text-xs text-gray-500">{vuln.file}:{vuln.line}</span>
+              <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-gray-800 text-gray-400 border border-gray-700">
+                {vuln.file?.split('.').pop()?.toUpperCase()}
+              </span>
               <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${cfg.badge}`}>{vuln.severity}</span>
               <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-purple-900/50 text-purple-400 border border-purple-800">{vuln.owasp}</span>
             </div>
